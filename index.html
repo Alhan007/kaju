@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Kaju Katli 🌹</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,500&family=Crimson+Pro:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --rose: #c0392b;
+    --soft-rose: #e8a0a0;
+    --blush: #fff0f0;
+    --petal: #ffd6d6;
+    --dark: #1a0a0a;
+    --gold: #c9a96e;
+  }
+
+  body {
+    background: var(--dark);
+    font-family: 'Crimson Pro', serif;
+    color: #f5e6e6;
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* Falling petals */
+  .petals-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+  .petal {
+    position: absolute;
+    top: -30px;
+    font-size: 1rem;
+    animation: fallDown linear infinite;
+    opacity: 0;
+  }
+  @keyframes fallDown {
+    0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0.7; }
+    50%  { transform: translateY(50vh) rotate(180deg) translateX(30px); opacity: 0.5; }
+    100% { transform: translateY(110vh) rotate(360deg) translateX(-20px); opacity: 0; }
+  }
+
+  /* Glow background */
+  .glow-orb {
+    position: fixed;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(192,57,43,0.15) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 0;
+    animation: pulse 4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+    50%       { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+  }
+
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 60px 28px 80px;
+    text-align: center;
+  }
+
+  /* Opening */
+  .opener {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 0.3s;
+  }
+
+  /* Main title */
+  .title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 12vw, 5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    margin: 16px 0 8px;
+    color: #fff;
+    opacity: 0;
+    animation: fadeIn 1.2s ease forwards 0.6s;
+  }
+  .title em {
+    font-style: italic;
+    color: var(--soft-rose);
+    display: block;
+    font-size: clamp(3.5rem, 13vw, 5.5rem);
+  }
+
+  /* Rose divider */
+  .rose-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin: 30px 0;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 1s;
+  }
+  .rose-line::before, .rose-line::after {
+    content: '';
+    width: 80px; height: 1px;
+    background: linear-gradient(to right, transparent, var(--rose));
+  }
+  .rose-line::after { background: linear-gradient(to left, transparent, var(--rose)); }
+
+  /* Letter */
+  .letter {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(192,57,43,0.25);
+    border-radius: 20px;
+    padding: 36px 28px;
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    animation: fadeUp 1.2s ease forwards 1.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .letter::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--rose), transparent);
+  }
+
+  .letter-line {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.25rem;
+    line-height: 2;
+    color: #f5e6e6;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards;
+  }
+  .letter-line:nth-child(1) { animation-delay: 1.5s; }
+  .letter-line:nth-child(2) { animation-delay: 1.9s; }
+  .letter-line:nth-child(3) { animation-delay: 2.3s; }
+  .letter-line:nth-child(4) { animation-delay: 2.7s; }
+  .letter-line:nth-child(5) { animation-delay: 3.1s; }
+  .letter-line:nth-child(6) { animation-delay: 3.5s; font-style: normal; color: var(--soft-rose); font-size: 1.1rem; margin-top: 10px; }
+
+  .highlight {
+    color: var(--soft-rose);
+    font-weight: 600;
+  }
+
+  /* Promise section */
+  .promise {
+    margin-top: 32px;
+    padding: 24px;
+    border-radius: 16px;
+    background: rgba(192,57,43,0.08);
+    border: 1px solid rgba(192,57,43,0.2);
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 4s;
+  }
+  .promise-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+  .promise p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: #f0d8d8;
+  }
+
+  /* Closing */
+  .closing {
+    margin-top: 40px;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 4.8s;
+  }
+  .closing .signature {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-style: italic;
+    color: var(--soft-rose);
+  }
+  .closing .sub {
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  /* Heart beat */
+  .heartbeat {
+    display: inline-block;
+    animation: heartbeat 1.4s ease-in-out infinite;
+    font-size: 2rem;
+    margin: 20px 0;
+    opacity: 0;
+    animation: heartbeat 1.4s ease-in-out infinite, fadeIn 1s ease forwards 4.5s;
+  }
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14%       { transform: scale(1.2); }
+    28%       { transform: scale(1); }
+    42%       { transform: scale(1.15); }
+    70%       { transform: scale(1); }
+  }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="petals-bg" id="petalsBg"></div>
+<div class="glow-orb"></div>
+
+<div class="wrapper">
+  <p class="opener">a letter from your person</p>
+
+  <h1 class="title">
+    My<em>Kaju Katli</em>
+  </h1>
+
+  <div class="rose-line"><span>🌹</span></div>
+
+  <div class="letter">
+    <p class="letter-line">I know last night I wasn't there,</p>
+    <p class="letter-line">and I know that <span class="highlight">you deserved better</span> than silence.</p>
+    <p class="letter-line">But here's what never changed for even a second —</p>
+    <p class="letter-line">you were in every corner of my mind,</p>
+    <p class="letter-line">the way you always are, the way you <span class="highlight">always will be.</span></p>
+    <p class="letter-line">— You are not just my love, you are my favourite feeling 🌹</p>
+  </div>
+
+  <div class="promise">
+    <p class="promise-title">✦ &nbsp; my promise &nbsp; ✦</p>
+    <p>
+      I promise to give you more of my time,<br>
+      more of my presence, more of my heart.<br>
+      Because someone as sweet as you,<br>
+      <em>my Kaju Katli,</em> deserves all of me —<br>
+      every single day. 💕
+    </p>
+  </div>
+
+  <div class="heartbeat">❤️</div>
+
+  <div class="closing">
+    <p class="signature">always yours</p>
+    <p class="sub">no matter what 🌹</p>
+  </div>
+</div>
+
+<script>
+  const bg = document.getElementById('petalsBg');
+  const petals = ['🌹','🌸','✨','💕','🌷','❤️'];
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = petals[Math.floor(Math.random() * petals.length)];
+    p.style.left = Math.random() * 100 + '%';
+    p.style.fontSize = (0.7 + Math.random()) + 'rem';
+    p.style.animationDuration = (7 + Math.random() * 10) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    bg.appendChild(p);
+  }
+</script>
+</body>
+</html>
